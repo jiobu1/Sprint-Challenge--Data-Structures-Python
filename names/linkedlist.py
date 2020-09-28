@@ -152,3 +152,36 @@ class LinkedList:
             # return the value
             return value
 
+    def count_common_nodes(ll_1, ll_2, duplicate):
+        duplicate = []
+
+        # list A
+        current1 = ll_1.head
+
+        # list B
+        current2 = ll_2.head
+
+        # set count = 0
+        count = 0
+
+        # traverse list A till the end of list
+        while(current1 != None):
+
+            # traverse list B till the end of the list
+            while(current2 != None):
+
+                # if data is match then count increase
+                if current1.get_value() == current2.value.get_value():
+                    duplicate.append(current1.get_value())
+                    count = count + 1
+
+                # incresase current pointer  for next node
+                current2 = current2.get_next()
+
+            # increase current pointer of list A
+            current1 = current1.get_next()
+
+            # initialize list B starting point
+            current2 = ll_2.head
+
+        return count, duplicate

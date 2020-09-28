@@ -1,5 +1,6 @@
 import time
 from bst import BSTNode
+from linkedlist import LinkedList
 
 start_time = time.time()
 
@@ -32,6 +33,52 @@ for name in names_2:
     if bst.contains(name):
         # add duplicates to list
         duplicates.append(name)
+
+# attempting to compare two linked lists
+ll_1 = LinkedList()
+for name in names_1:
+    ll_1.add_to_head(name)
+
+
+ll_2 = LinkedList()
+for name in names_2:
+    ll_2.add_to_head(name)
+
+# modified from geekstogeeks code
+# if current1.get_value() == current2.value.get_value():
+# AttributeError: 'str' object has no attribute 'get_value'
+
+duplicate2 = []
+
+# list A
+current1 = ll_1.head
+
+# list B
+current2 = ll_2.head
+
+# set count = 0
+count = 0
+# traverse list A till the end of list
+while current1:
+
+    # traverse list B till the end of the list
+    while current2:
+
+        # if data is match then count increase
+        if current1.get_value() == current2.value.get_value():
+            duplicate2.append(current1.get_value())
+            count = count + 1
+
+        # incresase current pointer  for next node
+        current2 = current2.get_next()
+
+    # increase current pointer of list A
+    current1 = current1.get_next()
+
+    # initialize list B starting point
+    current2 = ll_2.head
+print(count)
+
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
