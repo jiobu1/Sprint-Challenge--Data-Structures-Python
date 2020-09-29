@@ -38,40 +38,53 @@ class LinkedList:
 
         return False
 
-    def reverse_list(self, node=None, prev=None):
-        current_node = self.head
-        print("Current Node",current_node.get_value())
+    # def reverse_list(self, node=None, prev=None):
+    #     current_node = self.head
+    #     # print("Current Node",current_node.get_value())
 
-        # create list to hold nodes as they get removed
-        stack = []
+    #     # create list to hold nodes as they get removed
+    #     stack = []
 
-        # removing nodes and adding to list
-        while current_node != None:
-            stack.append(current_node.get_value())
-            current_node = current_node.get_next()
-            print("Stack", stack)
+    #     # removing nodes and adding to list
+    #     while current_node != None:
+    #         stack.append(current_node.get_value())
+    #         current_node = current_node.get_next()
+    #         # print("Stack", stack)
 
-        # Using LIFO from stack
-        if len(stack) > 0:
-            self.head = Node(stack.pop())
-            current_node = self.head
-            print("Reversed List",current_node.get_value())
+    #     # Using LIFO from stack
+    #     if len(stack) > 0:
+    #         self.head = Node(stack.pop())
+    #         current_node = self.head
+    #         # print("Reversed List",current_node.get_value())
 
-            while len(stack) > 0:
-                current_node.set_next(Node(stack.pop()))
-                current_node = current_node.get_next()
-                print("Reversed",current_node.get_value())
+    #         while len(stack) > 0:
+    #             current_node.set_next(Node(stack.pop()))
+    #             current_node = current_node.get_next()
+    #             # print("Reversed",current_node.get_value())
 
-    # another methode
-    def reverse(self, curr_node=None, prev=None):
-            prev = None
-            curr_node = self.head
-            while(curr_node is not None):
-                next = curr_node.next_node
-                curr_node.next_node = prev
-                prev = curr_node
-                curr_node = next
-            self.head = prev
+    # # another method
+    # def reverse(self, curr_node=None, prev=None):
+    #         prev = None
+    #         curr_node = self.head
+    #         while(curr_node is not None):
+    #             next = curr_node.next_node
+    #             curr_node.next_node = prev
+    #             prev = curr_node
+    #             curr_node = next
+    #         self.head = prev
+
+    # another meeting
+    def reverse_list(self, node,  prev):
+        # Nothing changes in empty or single lists
+        if node is None:
+            return
+
+        if node.next_node is None:
+            self.head = node
+            self.head.next_node = prev
+        else:
+            self.reverse_list(node.next_node, node)
+            node.next_node = prev
 
     def printList(self):
         temp = self.head
@@ -95,10 +108,12 @@ if __name__ == "__main__":
     ll.add_to_head(10)
 
     print(ll.printList())
-    ll_r = ll.reverse()
-    ll_r2 = ll.reverse_list()
-    # print(ll_r.printList())
-    # print(ll_r2.printList())
+    ll_r = ll.reverse_list(ll.head, None)
+    ll_r2 = ll.reverse_list(ll.head, None)
+
+    # printed only None
+    print(ll_r)
+    print(ll_r2)
 
     #unsure how to test
     # tests run but reverse_list returns None
